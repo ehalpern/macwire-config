@@ -1,34 +1,72 @@
-/**
- * SBT extensions that can't be expressed in .sbt file
- */
+import sbt.Keys._
 import sbt._
-import Keys._
 
-object ExtendedBuild extends Build {
-  lazy val root = Project("root", file("."))
-    /**
-     * Separate unit tests, integ tests and e2e tests.
-     * - 'sbt test' runs unit tests (*Spec but not *IntegSpec)
-     * - 'sbt integ:test' runs integ tests (*IntegSpec)
-     * @see http://www.scala-sbt.org/release/docs/Detailed-Topics/Testing#additional-test-configurations-with-shared-sources
-     */
-    .configs(IntegTest)
-    .settings(inConfig(IntegTest)(Defaults.testTasks) : _*)
-    .settings(
-      testOptions in Test := Seq(
-        Tests.Filter(unitFilter),
-        // Put results in target/test-reports
-        Tests.Argument(TestFrameworks.ScalaTest, "-o", "-u", "target/test-reports")
-      ),
-      testOptions in IntegTest := Seq(
-        Tests.Filter(integFilter),
-        // Put results in target/test-reports
-        Tests.Argument(TestFrameworks.ScalaTest, "-oF", "-u", "target/test-reports")
+object BuildSettings
+{
+  val paradiseVersion = "2.0.1"
+  val buildSettings = Defaults.coreDefaultSettings ++ Seq(
+    organization := "ehalpern",
+    version := "1.0.0",
+    scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature" /*, "-Ymacro-debug-lite"*/),
+    scalaVersion := "2.11.5",
+    resolvers += Resolver.sonatypeRepo("snapshots"),
+    resolvers += Resolver.sonatypeRepo("releases"),
+    resolvers += "Typesafe" at "http://repo.typesafe.com/typesafe/repo/",
+    // Add external conf directory to the classpath
+    unmanagedClasspath in Test += baseDirectory.value / "conf",
+    unmanagedClasspath in Runtime += baseDirectory.value / "conf",
+    addCompilerPlugin("org.scalamacros" % "paradise_2.11.5" % paradiseVersion)
+  )
+}
+
+object MultiBuild extends Build
+{
+  import BuildSettings._
+
+  lazy val root: Project = Project(
+    "root",
+    file("."),
+    settings = buildSettings ++ Seq(
+      run <<= run in Compile in core
+    )
+  ) aggregate(macros, core)
+
+  lazy val macros: Project = Project(
+    "macros",
+    file("macros"),
+    settings = buildSettings ++ Seq(
+      libraryDependencies <+= (scalaVersion)("org.scala-lang" % "scala-reflect" % _),
+      libraryDependencies ++= Seq(
+        "com.typesafe" % "config" % "1.2.1",
+        // Tests
+        "org.specs2" %% "specs2-core" % "2.4.15" % "test"
       )
     )
+  )
 
-  def integFilter(name: String): Boolean = name endsWith "IntegSpec"
-  def unitFilter(name: String): Boolean = (name endsWith "Spec") && !integFilter(name)
+  val MacwireVersion = "0.8.0"
+  val Log4jVersion = "2.1"
+  val ScalaTestVersion = "2.2.1"
 
-  lazy val IntegTest = config("integ") extend(Test)
+  lazy val core: Project = Project(
+    "core",
+    file("core"),
+    settings = buildSettings ++ Seq(
+      libraryDependencies ++= Seq(
+        "org.scalamacros" % "paradise_2.11.5" % paradiseVersion,
+        "org.scala-lang" % "scala-reflect" % scalaVersion.value,
+        "org.scala-lang" % "scala-library" % scalaVersion.value,
+        "org.scala-lang" % "scala-compiler"  % scalaVersion.value,
+        "com.softwaremill.macwire" %% "macros" % MacwireVersion,
+        "com.softwaremill.macwire" %% "runtime" % MacwireVersion,
+        "com.typesafe" % "config" % "1.2.1",
+        "com.typesafe.scala-logging" %% "scala-logging" % "3.1.0",
+        "org.apache.logging.log4j" % "log4j-api" % Log4jVersion,
+        "org.apache.logging.log4j" % "log4j-core" % Log4jVersion,
+        "org.apache.logging.log4j" % "log4j-slf4j-impl" % Log4jVersion,
+        //-------------------------------------------------------------------------
+        "org.scalatest" %% "scalatest" % ScalaTestVersion % "test"
+      )
+    )
+  ) dependsOn(macros)
 }
