@@ -1,7 +1,5 @@
 package macwire.config
 
 
-@NamesGenerator
-object ConfigNames {
-}
+@ConfigNamesGenerator trait ConfigNames
 

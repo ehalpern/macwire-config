@@ -15,6 +15,10 @@ object ConfigReader
    * by the the most specific type that can be inferred from reading the configuration.
    */
   def readConfig(): Seq[(String, Any)] = {
+
+    System.setProperty("config.file", "/Users/eric/dev/macwire-config/core/src/main/resources/application.conf")
+    System.setProperty("config.trace", "loads")
+
     val config = ConfigFactory.load
     val set = for (
       entry <- config.entrySet

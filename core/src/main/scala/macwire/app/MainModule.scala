@@ -1,13 +1,10 @@
 package macwire.app
 
-import com.softwaremill.macwire.Tagging._
-import macwire.config.ConfigNames._
+import macwire.config.ConfigModule
 
-
-trait MainModule
+trait MainModule extends ConfigModule
 {
   import com.softwaremill.macwire.MacwireMacros._
 
   lazy val pingService = wire[PingServiceImpl]
-  lazy val pingResponse = "Ping Back".taggedWith[`ping.response`]
 }

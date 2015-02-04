@@ -7,14 +7,12 @@ object BuildSettings
   val buildSettings = Defaults.coreDefaultSettings ++ Seq(
     organization := "ehalpern",
     version := "1.0.0",
-    scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature" /*, "-Ymacro-debug-lite"*/),
+    scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ymacro-debug-lite"),
     scalaVersion := "2.11.5",
     resolvers += Resolver.sonatypeRepo("snapshots"),
     resolvers += Resolver.sonatypeRepo("releases"),
     resolvers += "Typesafe" at "http://repo.typesafe.com/typesafe/repo/",
     // Add external conf directory to the classpath
-    unmanagedClasspath in Test += baseDirectory.value / "conf",
-    unmanagedClasspath in Runtime += baseDirectory.value / "conf",
     addCompilerPlugin("org.scalamacros" % "paradise_2.11.5" % paradiseVersion)
   )
 }
@@ -40,7 +38,8 @@ object MultiBuild extends Build
         "com.typesafe" % "config" % "1.2.1",
         // Tests
         "org.specs2" %% "specs2-core" % "2.4.15" % "test"
-      )
+      ),
+      unmanagedClasspath in Compile += baseDirectory.value / ".." / "core" / "main" / "resources"
     )
   )
 
@@ -54,7 +53,6 @@ object MultiBuild extends Build
     settings = buildSettings ++ Seq(
       libraryDependencies ++= Seq(
         "org.scalamacros" % "paradise_2.11.5" % paradiseVersion,
-        "org.scala-lang" % "scala-reflect" % scalaVersion.value,
         "org.scala-lang" % "scala-library" % scalaVersion.value,
         "org.scala-lang" % "scala-compiler"  % scalaVersion.value,
         "com.softwaremill.macwire" %% "macros" % MacwireVersion,
@@ -66,7 +64,8 @@ object MultiBuild extends Build
         "org.apache.logging.log4j" % "log4j-slf4j-impl" % Log4jVersion,
         //-------------------------------------------------------------------------
         "org.scalatest" %% "scalatest" % ScalaTestVersion % "test"
-      )
+      ),
+      unmanagedClasspath in Compile += baseDirectory.value / "src" / "main" / "resources"
     )
   ) dependsOn(macros)
 }
