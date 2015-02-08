@@ -25,9 +25,13 @@ object MultiBuild extends Build
     "root",
     file("."),
     settings = buildSettings ++ Seq(
-      run <<= run in Compile in core
+      run <<= run in Compile in example
     )
-  ) aggregate(macros, core)
+  ) aggregate(macros, example)
+
+  val MacwireVersion = "0.8.0"
+  val Log4jVersion = "2.1"
+  val ScalaTestVersion = "2.2.1"
 
   lazy val macros: Project = Project(
     "macros",
@@ -36,19 +40,21 @@ object MultiBuild extends Build
       libraryDependencies <+= (scalaVersion)("org.scala-lang" % "scala-reflect" % _),
       libraryDependencies ++= Seq(
         "com.typesafe" % "config" % "1.2.1",
+        "org.scalamacros" % "paradise_2.11.5" % paradiseVersion,
+        "org.scala-lang" % "scala-library" % scalaVersion.value,
+        "org.scala-lang" % "scala-compiler"  % scalaVersion.value,
+        "com.softwaremill.macwire" %% "macros" % MacwireVersion,
+        "com.softwaremill.macwire" %% "runtime" % MacwireVersion,
         // Tests
         "org.specs2" %% "specs2-core" % "2.4.15" % "test"
-      )
+      ),
+      unmanagedClasspath in Test += baseDirectory.value / "src" / "test" / "resources"
     )
   )
 
-  val MacwireVersion = "0.8.0"
-  val Log4jVersion = "2.1"
-  val ScalaTestVersion = "2.2.1"
-
-  lazy val core: Project = Project(
-    "core",
-    file("core"),
+  lazy val example: Project = Project(
+    "example",
+    file("example"),
     settings = buildSettings ++ Seq(
       libraryDependencies ++= Seq(
         "org.scalamacros" % "paradise_2.11.5" % paradiseVersion,
@@ -64,8 +70,7 @@ object MultiBuild extends Build
         //-------------------------------------------------------------------------
         "org.specs2" %% "specs2-core" % "2.4.15" % "test"
       ),
-      unmanagedClasspath in Compile += baseDirectory.value / "src" / "main" / "resources",
-      unmanagedClasspath in Test += baseDirectory.value / "src" / "test" / "resources"
+      unmanagedClasspath in Compile += baseDirectory.value / "src" / "main" / "resources"
     )
   ) dependsOn(macros)
 }

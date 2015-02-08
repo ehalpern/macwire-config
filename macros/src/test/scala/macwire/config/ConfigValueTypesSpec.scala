@@ -2,11 +2,8 @@ package macwire.config
 
 import com.softwaremill.macwire.MacwireMacros._
 import com.softwaremill.macwire.Tagging._
-import com.typesafe.config.ConfigFactory
 
 import org.specs2.mutable.Specification
-import ConfigWiring._
-
 
 /**
  */
@@ -33,28 +30,28 @@ class ConfigValueTypesSpec extends Specification with ConfigWiring.Module
   lazy val dlt = wire[DoubleListTest]
 
   "The config injector" should {
-    "read a String" in {
+    "inject a String" in {
       st.value mustEqual "test"
     }
-    "read a Boolean" in {
+    "inject a Boolean" in {
       bt0.value mustEqual false
     }
-    "read an Int" in {
+    "inject an Int" in {
       it.value mustEqual 1
     }
-    "read a Double" in {
+    "inject a Double" in {
       dt.value mustEqual 1.1
     }
-    "read a String List" in {
+    "inject a String List" in {
       slt.value mustEqual Seq("one", "two", "three")
     }
-    "read a Boolean List" in {
+    "inject a Boolean List" in {
       blt.value mustEqual Seq(true, false, true)
     }
-    "read an Int List" in {
+    "inject an Int List" in {
       ilt.value mustEqual Seq(1, 2, 3)
     }
-    "read a Double List" in {
+    "inject a Double List" in {
       dlt.value mustEqual Seq(1.1, 2.2, 3.3)
     }
   }
