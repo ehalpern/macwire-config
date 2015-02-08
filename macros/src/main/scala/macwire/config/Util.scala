@@ -1,15 +1,11 @@
-package macwire
+package macwire.config
 
 import java.net.URLClassLoader
 
 /**
- * Created by eric on 2/3/15.
+ * Created by eric on 2/6/15.
  */
-package object config {
-  def loadConfig = {
-
-  }
-
+object Util {
   // Simulates surrounding an identifier with backquotes
   def escapeName(name: String) : String = {
     name.replace(".", "$u002E")

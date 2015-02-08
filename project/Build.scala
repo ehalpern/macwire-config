@@ -7,7 +7,7 @@ object BuildSettings
   val buildSettings = Defaults.coreDefaultSettings ++ Seq(
     organization := "ehalpern",
     version := "1.0.0",
-    scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ymacro-debug-lite"),
+    scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature"/*, "-Ymacro-debug-lite"*/),
     scalaVersion := "2.11.5",
     resolvers += Resolver.sonatypeRepo("snapshots"),
     resolvers += Resolver.sonatypeRepo("releases"),
@@ -38,8 +38,7 @@ object MultiBuild extends Build
         "com.typesafe" % "config" % "1.2.1",
         // Tests
         "org.specs2" %% "specs2-core" % "2.4.15" % "test"
-      ),
-      unmanagedClasspath in Compile += baseDirectory.value / ".." / "core" / "main" / "resources"
+      )
     )
   )
 
@@ -63,9 +62,10 @@ object MultiBuild extends Build
         "org.apache.logging.log4j" % "log4j-core" % Log4jVersion,
         "org.apache.logging.log4j" % "log4j-slf4j-impl" % Log4jVersion,
         //-------------------------------------------------------------------------
-        "org.scalatest" %% "scalatest" % ScalaTestVersion % "test"
+        "org.specs2" %% "specs2-core" % "2.4.15" % "test"
       ),
-      unmanagedClasspath in Compile += baseDirectory.value / "src" / "main" / "resources"
+      unmanagedClasspath in Compile += baseDirectory.value / "src" / "main" / "resources",
+      unmanagedClasspath in Test += baseDirectory.value / "src" / "test" / "resources"
     )
   ) dependsOn(macros)
 }

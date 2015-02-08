@@ -1,8 +1,6 @@
-package macwire.app
+package macwire.config.example
 
-import macwire.config.ConfigModule
-
-trait MainModule extends ConfigModule
+trait MainModule extends ConfigWiring.Module
 {
   import com.softwaremill.macwire.MacwireMacros._
 

@@ -1,7 +1,7 @@
-package macwire.app
+package macwire.config.example
 
 import com.softwaremill.macwire.Tagging._
-import macwire.config._
+import ConfigWiring._
 
 /**
  */
@@ -11,8 +11,8 @@ trait PingService
 }
 
 class PingServiceImpl(
-  prefix: String @@ `ping.response`,
-  userName: String @@ `user.name`
+  val prefix: String @@ `ping.response`,
+  val userName: String @@ `user.name`
 ) extends PingService
 {
   def ping(str: String) {

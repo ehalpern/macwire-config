@@ -5,6 +5,10 @@ import com.typesafe.config.ConfigFactory
 import com.typesafe.config.ConfigValue
 import com.typesafe.config.ConfigValueType._
 
+import scala.reflect.internal.util.ScalaClassLoader
+import scala.reflect.runtime.universe._
+
+
 /**
  */
 object ConfigReader
@@ -14,12 +18,15 @@ object ConfigReader
    * all of the configuration properties and their associated values.  Values are represented
    * by the the most specific type that can be inferred from reading the configuration.
    */
-  def readConfig(): Seq[(String, Any)] = {
-
-    System.setProperty("config.file", "/Users/eric/dev/macwire-config/core/src/main/resources/application.conf")
+  def readConfig(cl: ClassLoader): Seq[(String, Any)] =
+  {
     System.setProperty("config.trace", "loads")
 
+    // Set the ctx classloader for ConfigFactory to find the conf file in the classpath
+    val origLoader = ScalaClassLoader.contextLoader
+    ScalaClassLoader.setContext(this.getClass.getClassLoader)
     val config = ConfigFactory.load
+    ScalaClassLoader.setContext(origLoader)
     val set = for (
       entry <- config.entrySet
     ) yield {
@@ -57,19 +64,20 @@ object ConfigReader
       }
       case OBJECT => throw new AssertionError("Unexpected type OBJECT: " + valueHolder)
       case NULL => throw new AssertionError("Unsupported type NULL: " + valueHolder)
+      case LIST => throw new AssertionError("Unexpected type LIST: " + valueHolder)
     }
     value
   }
 
   /**
-   * Convert the given config value list to a Seq[String|Boolean|Int|Double]
+   * Convert the given config value list to an Array[String|Boolean|Int|Double]
    */
   private def listValue(value: ConfigValue): Seq[Any]
   = {
     val list = value.unwrapped.asInstanceOf[java.util.List[Any]]
 
     if (list.size == 0) {
-      Seq()
+      Seq[String]()
     } else {
       val seq = list.get(0) match {
         case x: String =>
