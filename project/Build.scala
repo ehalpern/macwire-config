@@ -70,7 +70,8 @@ object MultiBuild extends Build
         //-------------------------------------------------------------------------
         "org.specs2" %% "specs2-core" % "2.4.15" % "test"
       ),
-      unmanagedClasspath in Compile += baseDirectory.value / "src" / "main" / "resources"
+      unmanagedClasspath in Compile += baseDirectory.value / "src" / "main" / "resources",
+      unmanagedClasspath in Test += baseDirectory.value / "src" / "test" / "resources"
     )
   ) dependsOn(macros)
 }

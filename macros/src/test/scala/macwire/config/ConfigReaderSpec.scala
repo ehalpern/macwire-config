@@ -1,6 +1,7 @@
 package macwire.config
 
 import org.specs2.mutable.Specification
+import scala.reflect.runtime.universe._
 
 /**
   */
@@ -10,11 +11,11 @@ class ConfigReaderSpec extends Specification
     "read some properties" in {
       val map = ConfigReader.readConfig(this.getClass.getClassLoader).toMap
       map should not be empty
-      map should havePair("types.boolean" -> false)
-      map should havePair("types.int" -> 1)
-      map should havePair("types.double"  -> 1.1)
-      map should havePair("types.string"  -> "test")
-      map should havePair("types.stringList" -> Seq("one", "two", "three"))
+      map should havePair("types.boolean" -> typeTag[Boolean])
+      map should havePair("types.int"     -> typeTag[Int])
+      map should havePair("types.double"  -> typeTag[Double])
+      map should havePair("types.string"  -> typeTag[String])
+      map should havePair("types.stringList" -> typeTag[Seq[String]])
     }
   }
 }
