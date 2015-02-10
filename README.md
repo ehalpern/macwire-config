@@ -1,3 +1,3 @@
 ##MacWire Config
 
-Integrates [MacWire](https://github.com/adamw/macwire) and [Typesafe Config](https://github.com/typesafehub/config) to support automatic configuration injection. 
+Integrate [Typesafe Config](https://github.com/typesafehub/config) with [MacWire](https://github.com/adamw/macwire) to enable declarative configuration injection. 
