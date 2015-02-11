@@ -69,7 +69,7 @@ trait SearchService
 
 class RemoteSearchService(
   host: String @@ `search.host`,
-  port: String @@ `search.port`
+  port: Int @@ `search.port`
 ) extends SearchService
 {
   def search(query) = {
