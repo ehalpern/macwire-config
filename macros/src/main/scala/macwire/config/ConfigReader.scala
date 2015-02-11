@@ -14,8 +14,9 @@ import scala.reflect.runtime.universe._
 object ConfigReader
 {
   /**
-   * Flattens the configuration and returns a list of (key, value) tuples representing
-   * all of the configuration properties and their associated values.  Values are represented
+   * Flattens the configuration and returns a list of (key, type) tuples representing
+   * all of the configuration properties and their associated types.  Types are inferred
+   * from property values.  This means that every
    * by the the most specific type that can be inferred from reading the configuration.
    */
   def readConfig(cl: ClassLoader): Seq[(String, TypeTag[_ <: Any])] =

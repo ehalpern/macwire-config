@@ -1,8 +1,8 @@
 package macwire.config.example
 
-trait MainModule extends ConfigWiring.Module
-{
-  import com.softwaremill.macwire.MacwireMacros._
+import com.softwaremill.macwire._
 
+trait MainModule extends Macwire with ConfigWiring.Module
+{
   lazy val pingService = wire[PingServiceImpl]
 }
