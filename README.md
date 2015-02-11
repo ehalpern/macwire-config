@@ -72,10 +72,8 @@ class RemoteSearchService(
   port: String @@ `search.port`
 ) extends SearchService
 {
-  private client = new SearchClient(host, port)
-  
   def search(query) = {
-    client.query(query)
+    sendQuery(host, port, query)
   }
 }
 
