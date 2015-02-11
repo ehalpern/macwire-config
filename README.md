@@ -30,10 +30,8 @@ class SearchService(
 ###Complete Example
 ##### Define the default configuration
 ```
-# resources/resource.conf - The default configuration file. Declares all configuration 
-# properties with default values.  In addition to being used at runtime to provide 
-# configuration values, this file is read at compile time to determines the names ans 
-# types of all available config properties.
+# This is an ordinary typesafe config conf file (like resources/resource.conf).  The only requirement is that 
+# it contain an entry and default value for every property to be injected.
 search {
   host = "localhost"
   port = 9200
