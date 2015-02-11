@@ -28,7 +28,7 @@ class SearchService(
 }
 ```
 ###Complete Example
-1. Define the default configuration
+##### Define the default configuration
 ```
 # resources/resource.conf - The default configuration file. Declares all configuration 
 # properties with default values.  In addition to being used at runtime to provide 
@@ -39,7 +39,7 @@ search {
   port = 9200
 }
 ```
-2. Create a ConfigWiring object
+##### Create a ConfigWiring object
 ```
 import macwire.config.ConfigWiringGenerator
 
@@ -48,16 +48,16 @@ import macwire.config.ConfigWiringGenerator
  */
  @ConfigWiringGenerator object ConfigWiring
 ```
-3. Create the main wiring module
+##### Create the main wiring module
 ```
 import com.softwaremill.macwire._
 import ConfigWiring.Module
 
 trait MainModule extends Macwire with ConfigWiring.Module {
-  lazy val searchService = wire[ElasticSearchService]
+  lazy val searchService = wire[RemoteSearchService]
 }
 ```
-4. Define the service
+##### Define the service
 ```
 import com.softwaremill.macwire.Tagging._
 import ConfigWiring._
@@ -67,16 +67,17 @@ trait SearchService
   def search(query: String): List[String]
 }
 
-class ElasticSearchService(
+class RemoteSearchService(
   host: String @@ `search.host`,
-  userName: String @@ `search.port`
+  port: String @@ `search.port`
 ) extends SearchService
 {
-  def search(query) {
-    System.out.println("Searching for: " + query)
+  private client = new SearchClient(host, port)
+  
+  def search(query) = {
+    client.query(query)
   }
 }
-
 
 ```
 
