@@ -42,7 +42,7 @@ search {
 import macwire.config.ConfigWiringGenerator
 
 /**
- * Object containing gerated code required for injecting config values.
+ * Object containing generated code required to inject config values.
  */
  @ConfigWiringGenerator object ConfigWiring
 ```
