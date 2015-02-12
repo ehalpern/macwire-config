@@ -73,7 +73,8 @@ object ConfigWiringGenerator {
           }
         """
         System.out.println(result)
-        c.Expr[Any](result)
+        val e = c.Expr[Any](result)
+        e
       case _ => c.abort(c.enclosingPosition, "Annotation must be applied to an object, not [" + decl + "]")
     }
   }

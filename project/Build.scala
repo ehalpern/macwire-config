@@ -5,38 +5,39 @@ object BuildSettings
 {
   val paradiseVersion = "2.0.1"
   val buildSettings = Defaults.coreDefaultSettings ++ Seq(
-    organization := "ehalpern",
-    version := "1.0.0",
-    scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature"/*, "-Ymacro-debug-lite"*/),
+    organization := "com.github.ehalpern",
+    isSnapshot := true,
+    version := "SNAPSHOT",
+    scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature"),
     scalaVersion := "2.11.5",
-    resolvers += Resolver.sonatypeRepo("snapshots"),
-    resolvers += Resolver.sonatypeRepo("releases"),
-    resolvers += "Typesafe" at "http://repo.typesafe.com/typesafe/repo/",
-    // Add external conf directory to the classpath
+    resolvers ++= Seq(
+      Resolver.sonatypeRepo("snapshots"),
+      Resolver.sonatypeRepo("releases"),
+      Resolver.typesafeRepo("releases")
+    ),
     addCompilerPlugin("org.scalamacros" % "paradise_2.11.5" % paradiseVersion)
   )
 }
 
-object MultiBuild extends Build
+object MainBuild extends Build
 {
   import BuildSettings._
 
   lazy val root: Project = Project(
     "root",
     file("."),
-    settings = buildSettings ++ Seq(
-      run <<= run in Compile in example
-    )
-  ) aggregate(macros, example)
+    settings = buildSettings
+  ) aggregate(macros)
 
   val MacwireVersion = "0.8.0"
   val Log4jVersion = "2.1"
-  val ScalaTestVersion = "2.2.1"
+  val Specs2Version = "2.4.15"
 
   lazy val macros: Project = Project(
-    "macros",
+    "macwire-config-macros",
     file("macros"),
     settings = buildSettings ++ Seq(
+      version := "SNAPSHOT",
       libraryDependencies <+= (scalaVersion)("org.scala-lang" % "scala-reflect" % _),
       libraryDependencies ++= Seq(
         "com.typesafe" % "config" % "1.2.1",
@@ -48,30 +49,13 @@ object MultiBuild extends Build
         // Tests
         "org.specs2" %% "specs2-core" % "2.4.15" % "test"
       ),
-      unmanagedClasspath in Test += baseDirectory.value / "src" / "test" / "resources"
+      unmanagedClasspath in Compile += baseDirectory.value / "src" / "test" / "resources"
     )
   )
 
   lazy val example: Project = Project(
-    "example",
+    "macwire-config-example",
     file("example"),
-    settings = buildSettings ++ Seq(
-      libraryDependencies ++= Seq(
-        "org.scalamacros" % "paradise_2.11.5" % paradiseVersion,
-        "org.scala-lang" % "scala-library" % scalaVersion.value,
-        "org.scala-lang" % "scala-compiler"  % scalaVersion.value,
-        "com.softwaremill.macwire" %% "macros" % MacwireVersion,
-        "com.softwaremill.macwire" %% "runtime" % MacwireVersion,
-        "com.typesafe" % "config" % "1.2.1",
-        "com.typesafe.scala-logging" %% "scala-logging" % "3.1.0",
-        "org.apache.logging.log4j" % "log4j-api" % Log4jVersion,
-        "org.apache.logging.log4j" % "log4j-core" % Log4jVersion,
-        "org.apache.logging.log4j" % "log4j-slf4j-impl" % Log4jVersion,
-        //-------------------------------------------------------------------------
-        "org.specs2" %% "specs2-core" % "2.4.15" % "test"
-      ),
-      unmanagedClasspath in Compile += baseDirectory.value / "src" / "main" / "resources",
-      unmanagedClasspath in Test += baseDirectory.value / "src" / "test" / "resources"
-    )
-  ) dependsOn(macros)
+    settings = buildSettings
+  )
 }
