@@ -6,9 +6,9 @@ import org.specs2.mutable.Specification
 
 /**
  */
-class ConfigValueTypesSpec extends Specification with ConfigWiring.Module
-{ // import the generated config property tags
-  import ConfigWiring._
+class ConfigValueTypesSpec extends Specification with Config.Wiring
+{
+  import Config.Tags._  // import the generated config property tags
   class StringTest(val value: String @@ `types.string`)
   class BooleanTest(val value: Boolean @@ `types.boolean`)
   class IntTest(val value: Int @@ `types.int`)

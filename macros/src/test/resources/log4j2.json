@@ -1,0 +1,23 @@
+/**
+ * Barebones logging
+ */
+{
+  "configuration": {
+    "name": "StandardLogger",
+    "appenders": {
+      "Console": {
+        "name":"Console",
+        "target":"SYSTEM_OUT",
+        "PatternLayout": {
+          "alwaysWriteExceptions": false,
+          "pattern": "%-5level [%d{ISO8601}] [%logger{1}] %msg%n%replace{%ex{short.className}}{^.+$}{! }%replace{%xEx{full}}{\n\t}{\n!\t}"
+        }
+      }
+    },
+    "loggers": {
+      "root": { "level": "debug", "appender-ref": { "ref":"Console" }},
+      "logger": [
+      ]
+    }
+  }
+}

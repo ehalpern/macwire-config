@@ -1,7 +1,7 @@
 package macwire.config.example
 
 import com.softwaremill.macwire.Tagging._
-import ConfigWiring._
+import Config.Tags._
 
 /**
  */

@@ -30,7 +30,7 @@ object MainBuild extends Build
   ) aggregate(macros)
 
   val MacwireVersion = "0.8.0"
-  val Log4jVersion = "2.1"
+  val Slf4jVersion = "1.7.10"
   val Specs2Version = "2.4.15"
 
   lazy val macros: Project = Project(
@@ -46,6 +46,8 @@ object MainBuild extends Build
         "org.scala-lang" % "scala-compiler"  % scalaVersion.value,
         "com.softwaremill.macwire" %% "macros" % MacwireVersion,
         "com.softwaremill.macwire" %% "runtime" % MacwireVersion,
+        "org.slf4j" % "slf4j-api" % Slf4jVersion,
+        "org.slf4j" % "slf4j-simple" % Slf4jVersion,
         // Tests
         "org.specs2" %% "specs2-core" % "2.4.15" % "test"
       ),
