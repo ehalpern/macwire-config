@@ -79,7 +79,7 @@ class RemoteSearchService(
 #### Mapping Configuration Value Types
 
  Example       | Scala type 
-----------------------------
+---------------|------------
 "something"    | String     
 true \| false  | Boolean    
 5              | Int        
