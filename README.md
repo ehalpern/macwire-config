@@ -49,7 +49,6 @@ import macwire.config.ConfigWiringGenerator
 ##### Create the main wiring module
 ```
 import com.softwaremill.macwire._
-import ConfigWiring.Module
 
 trait MainModule extends Macwire with ConfigWiring.Module {
   lazy val searchService = wire[RemoteSearchService]
@@ -58,7 +57,7 @@ trait MainModule extends Macwire with ConfigWiring.Module {
 ##### Define the service
 ```
 import com.softwaremill.macwire.Tagging._
-import ConfigWiring._
+import ConfigWiring.Tags._
 
 trait SearchService
 {
