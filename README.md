@@ -27,56 +27,53 @@ class SearchService(
   ...
 }
 ```
-###Complete Example
-##### Define the default configuration
+###An  Example
+##### Define the configuration
+Define a standard Typesafe configuration (in resources/application.conf for example).  The only additional requirement is that the configuration files must be available at compile time and contain a default value for all properties that are to be injected.    
 ```
-# This is an ordinary typesafe config conf file (like resources/resource.conf).  The only 
-# requirement is that it contain an entry and default value for every property to be injected.
 search {
   host = "localhost"
   port = 9200
 }
 ```
-##### Create a ConfigWiring object
+##### Create a Config wiring object
+This object will contain the code-generated configuration tags and wiring required to inject configuration property values.
 ```
 import macwire.config.ConfigWiringGenerator
 
 /**
  * Object containing generated code required to inject config values.
  */
- @ConfigWiringGenerator object ConfigWiring
+ @ConfigWiringGenerator object Config
 ```
 ##### Create the main wiring module
+Add the config wiring by mixing Config.Wiring in with your standard wiring definition
 ```
 import com.softwaremill.macwire._
 
-trait MainModule extends Macwire with ConfigWiring.Module {
-  lazy val searchService = wire[RemoteSearchService]
+trait MainModule extends Macwire with ConfigWiring.Wiring {
+  lazy val searchService = wire[SearchService]
 }
 ```
 ##### Define the service
+Inject configuration values into the service by declaring them in the constructor and tagging them with the 
+approprate tag (generated in Config.Tags).
 ```
 import com.softwaremill.macwire.Tagging._
-import ConfigWiring.Tags._
+import Config.Tags._
 
-trait SearchService
-{
-  def search(query: String): List[String]
-}
-
-class RemoteSearchService(
+class SearchService(
   host: String @@ `search.host`,
   port: Int @@ `search.port`
-) extends SearchService
-{
-  def search(query) = {
-    sendQuery(host, port, query)
+) {
+  def search(query: String) = {
+    ...
   }
 }
 
 ```
 
-#### Mapping Configuration Value Types
+#### Behind the scenes
 
 To inject a specific config value, be sure to declare the correct type and append the correct tag.  In the example above
 
