@@ -92,3 +92,5 @@ true \| false  | Boolean
 [true, false]  | Seq[Boolean]
 [1, 2, 3]      | Seq[Int]
 [1.1, 2.2, 3.3] | Seq[Double]
+
+### Troubleshooting
