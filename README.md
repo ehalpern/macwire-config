@@ -78,13 +78,20 @@ class RemoteSearchService(
 
 #### Mapping Configuration Value Types
 
- Example       | Scala type 
+To inject a specific config value, be sure to declare the correct type and append the correct tag.  In the example above
+
+```
+  port: Int @@ `search.port`
+```
+The type of each config property is inferred from the property value as follows:
+
+ Value Example | Scala type 
 ---------------|------------
-"something"    | String     
+"something" \| something | String     
 true \| false  | Boolean    
 5              | Int        
 5.3            | Double     
-[foo, bar]     | Seq[String]
+["foo", "bar"] \| [foo, bar] | Seq[String]
 [true, false]  | Seq[Boolean]
 [1, 2, 3]      | Seq[Int]
 [1.1, 2.2, 3.3] | Seq[Double]
