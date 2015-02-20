@@ -80,7 +80,7 @@ object ConfigWiringGenerator
         $nextLine
         """
       })
-      debug("/** Tags for system properties not shown **/")
+      debug("/* ... (tags for system properties not shown) */")
       tags
     }
 
@@ -113,7 +113,7 @@ object ConfigWiringGenerator
         $nextLine
         """
       })
-      debug("/** Wiring for system properties not shown **/")
+      debug("/* ... (wiring for system properties not shown) */")
       wiring
     }
     return generateConfigWiring(annottees)

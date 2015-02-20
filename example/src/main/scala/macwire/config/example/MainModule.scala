@@ -4,5 +4,5 @@ import com.softwaremill.macwire._
 
 trait MainModule extends Macwire with Config.Wiring
 {
-  lazy val searchService = wire[RemoteSearchService]
+  lazy val kitchenSinkService = wire[KitchenSinkServiceImpl]
 }
