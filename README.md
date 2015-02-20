@@ -41,10 +41,7 @@ This object will contain the code-generated configuration tags and wiring requir
 ```
 import macwire.config.ConfigWiringGenerator
 
-/**
- * Object containing generated code required to inject config values.
- */
- @ConfigWiringGenerator object Config
+@ConfigWiringGenerator object Config
 ```
 ##### Create the main wiring module
 Add the config wiring by mixing Config.Wiring in with your standard wiring definition
