@@ -1,4 +1,4 @@
-package macwire.config.example
+package twine.macwire.config.example
 
 import com.softwaremill.macwire._
 

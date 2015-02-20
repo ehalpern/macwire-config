@@ -1,3 +1,3 @@
-package macwire.config
+package twine.macwire.config
 
 @ConfigWiringGenerator object Config

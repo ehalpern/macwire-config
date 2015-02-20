@@ -1,4 +1,4 @@
-package macwire.config.example
+package twine.macwire.config.example
 
 object Main extends App with MainModule
 {

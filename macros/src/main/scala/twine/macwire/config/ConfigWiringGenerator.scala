@@ -1,4 +1,4 @@
-package macwire.config
+package twine.macwire.config
 
 import scala.annotation.StaticAnnotation
 import scala.language.experimental.macros

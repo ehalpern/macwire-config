@@ -1,4 +1,4 @@
-package macwire.config
+package twine.macwire.config
 
 import com.softwaremill.macwire.MacwireMacros._
 import com.softwaremill.macwire.Tagging._
@@ -7,8 +7,9 @@ import org.specs2.mutable.Specification
 /**
  */
 class ConfigValueTypesSpec extends Specification with Config.Wiring
-{
-  import Config.Tags._  // import the generated config property tags
+{  // import the generated config property tags
+  import Config.Tags._
+
   class StringTest(val value: String @@ `types.string`)
   class BooleanTest(val value: Boolean @@ `types.boolean`)
   class IntTest(val value: Int @@ `types.int`)

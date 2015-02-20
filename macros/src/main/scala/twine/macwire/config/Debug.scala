@@ -1,4 +1,4 @@
-package macwire.config
+package twine.macwire.config
 
 private[config] class Debug
 {

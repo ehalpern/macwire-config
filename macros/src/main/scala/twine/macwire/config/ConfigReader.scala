@@ -1,10 +1,9 @@
-package macwire.config
+package twine.macwire.config
 
-import scala.collection.JavaConversions._
-import com.typesafe.config.ConfigFactory
-import com.typesafe.config.ConfigValue
+import com.typesafe.config.{ConfigFactory, ConfigValue}
 import com.typesafe.config.ConfigValueType._
 
+import scala.collection.JavaConversions._
 import scala.reflect.internal.util.ScalaClassLoader
 import scala.reflect.runtime.universe._
 

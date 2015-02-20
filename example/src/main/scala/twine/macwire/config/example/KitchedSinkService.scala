@@ -1,4 +1,4 @@
-package macwire.config.example
+package twine.macwire.config.example
 
 import com.softwaremill.macwire.Tagging._
 import Config.Tags._ // imported so that tags don't have to be qualified with Config.Tags

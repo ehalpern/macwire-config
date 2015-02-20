@@ -1,4 +1,4 @@
-package macwire.config
+package twine.macwire.config
 
 import java.net.URLClassLoader
 

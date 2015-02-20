@@ -1,4 +1,4 @@
-package macwire.config
+package twine.macwire.config
 
 import org.specs2.mutable.Specification
 import scala.reflect.runtime.universe._
