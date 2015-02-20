@@ -30,8 +30,8 @@ class SearchService(
 ###Complete Example
 ##### Define the default configuration
 ```
-# This is an ordinary typesafe config conf file (like resources/resource.conf).  The only requirement is that 
-# it contain an entry and default value for every property to be injected.
+# This is an ordinary typesafe config conf file (like resources/resource.conf).  The only 
+# requirement is that it contain an entry and default value for every property to be injected.
 search {
   host = "localhost"
   port = 9200
