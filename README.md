@@ -76,3 +76,15 @@ class RemoteSearchService(
 
 ```
 
+#### Mapping Configuration Value Types
+
+ Example       | Scala type 
+----------------------------
+"something"    | String     
+true \| false  | Boolean    
+5              | Int        
+5.3            | Double     
+[foo, bar]     | Seq[String]
+[true, false]  | Seq[Boolean]
+[1, 2, 3]      | Seq[Int]
+[1.1, 2.2, 3.3] | Seq[Double]
