@@ -8,7 +8,7 @@ DI examples often focus on object dependencies.  The standard example replaces a
 
 Why not let the DI system manage configuration values as well?  This libary extends the MacWire DI system to do just that.  It uses the TypeSafe Config library as a starting point for defining and obtaining configuration.  It then provides a scala annotation macro that generates the code required to inject configuration values by name in a type safe manner. 
 
-So given a configuration like this:
+So given a configuration like
 
 ```
 search {
@@ -17,7 +17,7 @@ search {
 }
 ```
 
-You can define a service like this:
+you can inject configuration values like so:
 
 ```
 class SearchService(
