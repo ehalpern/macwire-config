@@ -8,7 +8,7 @@ DI examples often focus on object dependencies.  The standard example replaces a
 
 Why not let the DI system manage configuration values as well?  This libary extends the MacWire DI system to do just that.  It uses the TypeSafe Config library as a starting point for defining and obtaining configuration.  It then provides a scala annotation macro that generates the code required to inject configuration values by name in a type safe manner. 
 
-So given a configuration like
+So given a configuration definition like
 
 ```
 search {
@@ -17,7 +17,7 @@ search {
 }
 ```
 
-you can inject configuration values like so:
+you can inject the configuration values like so:
 
 ```
 class SearchService(
@@ -43,7 +43,7 @@ import macwire.config.ConfigWiringGenerator
 
 @ConfigWiringGenerator object Config
 ```
-This object will contain the code-generated configuration tags and wiring required to inject configuration property values.
+The Config object will be populated with the configuration tags and wiring required for injection.
 
 ##### Create the main wiring module
 ```
@@ -53,7 +53,7 @@ trait MainModule extends Macwire with ConfigWiring.Wiring {
   lazy val searchService = wire[SearchService]
 }
 ```
-Add the config wiring by mixing Config.Wiring in with your standard wiring definition
+Mix Config.Wiring into the main wiring definition to make configuration values available for injection.
 
 ##### Define the service
 ```
