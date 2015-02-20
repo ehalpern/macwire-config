@@ -29,22 +29,23 @@ class SearchService(
 ```
 ###An  Example
 ##### Define the configuration
-Define a standard Typesafe configuration (in resources/application.conf for example).  The only additional requirement is that the configuration files must be available at compile time and contain a default value for all properties that are to be injected.    
 ```
 search {
   host = "localhost"
   port = 9200
 }
 ```
+Define a standard Typesafe configuration (in resources/application.conf for example).  The only additional requirement is that the configuration files must be available at compile time and contain a default value for all properties that are to be injected.
+
 ##### Create a Config wiring object
-This object will contain the code-generated configuration tags and wiring required to inject configuration property values.
 ```
 import macwire.config.ConfigWiringGenerator
 
 @ConfigWiringGenerator object Config
 ```
+This object will contain the code-generated configuration tags and wiring required to inject configuration property values.
+
 ##### Create the main wiring module
-Add the config wiring by mixing Config.Wiring in with your standard wiring definition
 ```
 import com.softwaremill.macwire._
 
@@ -52,9 +53,9 @@ trait MainModule extends Macwire with ConfigWiring.Wiring {
   lazy val searchService = wire[SearchService]
 }
 ```
+Add the config wiring by mixing Config.Wiring in with your standard wiring definition
+
 ##### Define the service
-Inject configuration values into the service by declaring them in the constructor and tagging them with the 
-approprate tag (generated in Config.Tags).
 ```
 import com.softwaremill.macwire.Tagging._
 import Config.Tags._
@@ -69,6 +70,8 @@ class SearchService(
 }
 
 ```
+Inject configuration values into the service by declaring them in the constructor and tagging them with the 
+approprate tag (generated in Config.Tags).
 
 #### Behind the scenes
 
