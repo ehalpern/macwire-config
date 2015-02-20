@@ -73,9 +73,9 @@ class SearchService(
 Inject configuration values into the service by declaring them in the constructor and tagging them with the 
 approprate tag (generated in Config.Tags).
 
-#### Behind the scenes
+### Matching configuration properties to constructor parameters
 
-To inject a specific config value, be sure to declare the correct type and append the correct tag.  In the example above
+When declaring configuration parameter, be sure to declare the correct type and append the correct tag.  In the example above
 
 ```
   port: Int @@ `search.port`
