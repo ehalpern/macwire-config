@@ -81,15 +81,15 @@ approprate tag (defined in Config.Tags).
 
 ### Matching Rules
 
-When declaring a configuration parameter, be sure to specify the correct tag and type.  Consider the port parameter
+When declaring a configuration parameter, be sure to specify the correct tag and type.  Consider the port parameter:
 
 ```
   port: Int @@ `search.port`
 ```
 
-The tag is the configuration property name surrounded by backquotes (\`search.port\` in this case).  This is actually an empty trait declared in Config.Tags with the fully qualified name Config.Tags.\`search.port\`), so be sure to import Config.Tags._ wherever you refer to a tag name. 
+The tag \`search.port\` is the configuration property name surrounded by backquotes.  (It is actually the generated marker trait `Config.Tags.\`search.port\``).
 
-The type of each config property is inferred from the property value as follows:
+The type is Int which must match the type inferred from reading the configuraiton property value.  If the types don't match, the compilation will fail.  The following table shows the corresponding scala type inferred by the possibleconfiguration values:
 
  Value Example | Scala type 
 ---------------|------------
