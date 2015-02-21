@@ -35,13 +35,13 @@ search {
   port = 9200
 }
 ```
-Define a standard Typesafe configuration (in resources/application.conf for example).  
+Define a standard Typesafe configuration (in `src/main/resources/application.conf` for example).  
 
 ##### Add the configuration to the compiler classpath in build.sbt
 ```
 unmanagedClasspath in Compile += sourceDirectory.value / "main" / "resources"
 ```
-At compile time, the code generator reads the Typesafe configuration to determine configuration property names and types. This requires that the configuration file to be on the compiler classpath, which is not case for the \`src/.../resources`' directory by default.
+At compile time, the code generator reads the Typesafe configuration to determine configuration property names and types. This requires that the configuration file to be on the compiler classpath, which is not the case for `src/main/resources` by default.
 
 ##### Create a Config wiring object
 ```
