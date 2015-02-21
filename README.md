@@ -89,7 +89,9 @@ port: Int @@ `search.port`
 
 The tag \`search.port\` is the configuration property name surrounded by backquotes.  (It is actually the generated marker trait `Config.Tags.`\``search.port`\`).
 
-The type Int must match the type inferred from reading the configuraiton property value.  If the types don't match, the compilation will fail.  The following table shows the scala type inferred from each of the possible configuration value forms:
+The type `Int` must match the type inferred from reading the value of search.port from the configuration.  If the types don't match, the compilation will fail.  
+
+The following table illustrates each of the possible scala types that can be inferred from configuration values:
 
  Value Example | Scala type 
 ---------------|------------
