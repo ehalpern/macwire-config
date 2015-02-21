@@ -10,7 +10,7 @@ search {
 }
 ```
 
-Using this simple library, you can inject any property defined in that configuration simply by declaring it as a constructor parameter in the class that needs it:
+Using this library, you can inject any property defined in that configuration simply by declaring it as a constructor parameter in the class that needs it:
 ```
 class SearchService(
   host: String @@ `search.host`,  // injected with "localhost"
