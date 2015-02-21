@@ -49,13 +49,13 @@ import macwire.config.ConfigWiringGenerator
 
 @ConfigWiringGenerator object Config
 ```
-The Config object will be populated with the configuration tags and wiring required for injection.
+The `@ConfigWiringGenerator` annotation will add configuration tags (`Config.Tags`) and wiring (`Config.Wiring`) to the Config object.
 
 ##### Create the main wiring module
 ```
 import com.softwaremill.macwire._
 
-trait MainModule extends Macwire with ConfigWiring.Wiring {
+trait MainModule extends Macwire with Config.Wiring {
   lazy val searchService = wire[SearchService]
 }
 ```
@@ -77,7 +77,7 @@ class SearchService(
 
 ```
 Inject configuration values into the service by declaring them in the constructor and tagging them with the 
-approprate tag (generated in Config.Tags).
+approprate tag (defined in Config.Tags).
 
 ### Matching Rules
 
