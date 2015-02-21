@@ -95,11 +95,11 @@ The following table lists examples of each configuration value pattern and the c
 
  Value Example | Scala type 
 ---------------|------------
-"something" *OR* something | String     
-true *OR* false  | Boolean    
+"something" **OR** something | String     
+true **OR** false  | Boolean    
 5              | Int        
 5.3            | Double     
-["foo", "bar"] *OR* [foo, bar] | Seq[String]
+["foo", "bar"] **OR** [foo, bar] | Seq[String]
 [true, false]  | Seq[Boolean]
 [1, 2, 3]      | Seq[Int]
 [1.1, 2.2, 3.3] | Seq[Double]
