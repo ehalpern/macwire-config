@@ -41,7 +41,7 @@ Define a standard Typesafe configuration (in `src/main/resources/application.con
 ```
 unmanagedClasspath in Compile += sourceDirectory.value / "main" / "resources"
 ```
-At compile time, the code generator reads the Typesafe configuration to determine configuration property names and types. This requires that the configuration file to be on the compiler classpath, which is not the case for `src/main/resources` by default.
+At compile time, the code generator reads the Typesafe configuration to determine configuration property names and types. This requires that the configuration file to be on the compiler classpath. This is not the case for `src/main/resources` by default, so we must add it to the compilers unmanaged classpath.
 
 ##### Create a Config wiring object
 ```
