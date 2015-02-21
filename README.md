@@ -2,7 +2,7 @@
 
 Inject [Typesafe Configuration](https://github.com/typesafehub/config) using [MacWire](https://github.com/adamw/macwire) dependency injection.
 
-The key benefit of dependency injection (DI) is that it removes initialization logic from your code. Instead of initializing dependencies in the constructor, you simply declare them as parameters and leave it to the DI system to call the constructor with the right values. This results in more modular code that can be easily unit tested and reconfigured. 
+The key benefit of dependency injection (DI) is that it removes initialization logic from your code. Instead of initializing dependencies in the constructor, you simply declare them as parameters and leave it to the DI system to call the constructor with the right values. This results in more modular code that can be easily reconfigured and unit tested. 
 
 DI discussions often focus on interchangeable component implementations. A standard example is replacing a real implementation with a mock implementation in order to unit test a component. But impelementation injection is only part of the story.  Components often depend on configuration constants as well.  If DI only handles implementation injection, you're stuck sprinkling configuration system dependencies and initialization statements throughout your code.  
 
