@@ -93,7 +93,7 @@ The type `Int` must match the type inferred from reading the value of search.por
 
 The following table lists examples of each configuration value pattern and the corresponding scala type that's inferred from that pattern:
 
- Value Example | Scala type 
+ Value Pattern | Scala Type 
 ---------------|------------
 "something" **OR** something | String     
 true **OR** false  | Boolean    
