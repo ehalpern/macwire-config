@@ -2,7 +2,7 @@
 
 Inject [Typesafe Configuration](https://github.com/typesafehub/config) using [MacWire](https://github.com/adamw/macwire) dependency injection.
 
-Consider the following application.conf:
+Consider the following (Typesafe) configuration:
 ```
 search {
   host = "localhost"
@@ -10,7 +10,7 @@ search {
 }
 ```
 
-Using this library, you can inject these properties simply by declaring them as constructor parameters in the classes that need them:
+Using this simple library, you can inject any property defined in that configuration simply by declaring it as a constructor parameter in the class that needs it:
 ```
 class SearchService(
   host: String @@ `search.host`,  // injected with "localhost"
@@ -19,11 +19,6 @@ class SearchService(
   ...
 }
 ```
-The key benefit of dependency injection (DI) is that it decouples (and hopefully simplifies) component code. Instead of initializing dependencies in the constructor, you simply declare them as parameters and leave it to the DI system to call the constructor with the right values. This results in more modular components that can be easily reconfigured and unit tested. 
-
-DI discussions often focus on interchangeable component implementations. A standard example is replacing a real implementation with a mock implementation in order to unit test a component. But impelementation injection is only part of the story.  Components often depend on configuration constants as well.  If DI only handles implementation injection, you're stuck sprinkling configuration system dependencies and initialization statements throughout your code.  
-
-Why not let the DI system inject configuration values as well?  This libary extends the MacWire DI system to do just that.  It uses the TypeSafe Config library as a starting point for defining and obtaining configuration.  It then provides a scala annotation macro that generates the code required to inject configuration values by name in a type safe manner. 
 
 ###Complete  Example
 ##### Define the configuration
