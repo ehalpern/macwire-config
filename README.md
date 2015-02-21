@@ -91,7 +91,7 @@ The tag \`search.port\` is the configuration property name surrounded by backquo
 
 The type `Int` must match the type inferred from reading the value of search.port from the configuration.  If the types don't match, the compilation will fail.  
 
-The following table illustrates each of the possible scala types that can be inferred from configuration values:
+The following table lists examples of each configuration value pattern and the corresponding scala type that's inferred from that pattern:
 
  Value Example | Scala type 
 ---------------|------------
