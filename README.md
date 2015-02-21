@@ -34,7 +34,7 @@ Define a standard Typesafe configuration (in `src/main/resources/application.con
 ```
 unmanagedClasspath in Compile += sourceDirectory.value / "main" / "resources"
 ```
-At compile time, the code generator reads the Typesafe configuration to determine configuration property names and types. This requires that the configuration file to be on the compiler classpath. This is not the case for `src/main/resources` by default, so we must add it to the compilers unmanaged classpath.
+At compile time, the code generator reads the Typesafe configuration to determine configuration property names and types. This requires the configuration file be on the compiler classpath. This is not the case for `src/main/resources` by default, so we must add it to the compiler's unmanaged classpath.
 
 ##### Create a Config wiring object
 ```
@@ -42,7 +42,7 @@ import macwire.config.ConfigWiringGenerator
 
 @ConfigWiringGenerator object Config
 ```
-The `@ConfigWiringGenerator` annotation will add configuration tags (`Config.Tags`) and wiring (`Config.Wiring`) to the Config object.
+The config wiring object is a placeholder that you must define.  The @ConfigWiringGenerator macro will add configuration tags (`Config.Tags`) and wiring (`Config.Wiring`) to this object.
 
 ##### Create the main wiring module
 ```
@@ -52,7 +52,7 @@ trait MainModule extends Macwire with Config.Wiring {
   lazy val searchService = wire[SearchService]
 }
 ```
-Mix `Config.Wiring` into the main wiring definition to make configuration values available for injection.
+You must mix `Config.Wiring` into your main wiring definition to make configuration values available for injection.
 
 ##### Define the service
 ```
