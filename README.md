@@ -37,12 +37,11 @@ search {
 ```
 Define a standard Typesafe configuration (in resources/application.conf for example).  
 
-The code generator reads the configuration at compile time to determine the names and types of all injectable properties.  This means that the configuration file must be on the compiler classpath.  Add the following to your build.sbt:
+##### Add the configuration to the compiler classpath in build.sbt
 ```
 unmanagedClasspath in Compile += sourceDirectory.value / "main" / "resources"
 ```
-
-MacWire wiring is all resolved at compile The only additional requirement is that the configuration files must be available at compile time and contain a default value for all properties that are to be injected.
+The code generator determines the configuration property names and types at compile time by reading the Typesafe configuration.  To do this, it must be able to load the configuration file from the compiler classpath.  If the configuration file is in the `resources` directory, you must explicitly add that directory to the compiler classpath.   
 
 ##### Create a Config wiring object
 ```
