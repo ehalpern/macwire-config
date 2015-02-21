@@ -59,7 +59,7 @@ trait MainModule extends Macwire with Config.Wiring {
   lazy val searchService = wire[SearchService]
 }
 ```
-Mix Config.Wiring into the main wiring definition to make configuration values available for injection.
+Mix `Config.Wiring` into the main wiring definition to make configuration values available for injection.
 
 ##### Define the service
 ```
@@ -81,15 +81,13 @@ approprate tag (defined in Config.Tags).
 
 ### Matching Rules
 
-When declaring a configuration parameter, be sure to specify the correct type and append the correct tag.  Consider the example 
+When declaring a configuration parameter, be sure to specify the correct tag and type.  Consider the port parameter
 
 ```
-import Config.Tags._
-  ...
   port: Int @@ `search.port`
 ```
 
-The tag is the configuration property name surrounded by backquotes, \`search.port\` in this case).  This is actually an empty trait declared in Config.Tags with the fully qualified name Config.Tags.\`search.port\`), so be sure to import Config.Tags._ wherever you refer to a tag name. 
+The tag is the configuration property name surrounded by backquotes (\`search.port\` in this case).  This is actually an empty trait declared in Config.Tags with the fully qualified name Config.Tags.\`search.port\`), so be sure to import Config.Tags._ wherever you refer to a tag name. 
 
 The type of each config property is inferred from the property value as follows:
 
