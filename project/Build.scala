@@ -15,7 +15,38 @@ object BuildSettings
       Resolver.sonatypeRepo("releases"),
       Resolver.typesafeRepo("releases")
     ),
-    addCompilerPlugin("org.scalamacros" % "paradise_2.11.5" % paradiseVersion)
+    addCompilerPlugin("org.scalamacros" % "paradise_2.11.5" % paradiseVersion),
+    publishTo := {
+      val nexus = "https://oss.sonatype.org/"
+      if (isSnapshot.value)
+        Some("snapshots" at nexus + "content/repositories/snapshots")
+      else
+        Some("releases" at nexus + "service/local/staging/deploy/maven2")
+    },
+    publishMavenStyle := true,
+    publishArtifact in Test := false,
+    pomIncludeRepository := { _ => false },
+    pomExtra := (
+      <url>https://github.com/ehalpern/macwire-config</url>
+      <licenses>
+        <license>
+          <name>BSD-style</name>
+          <url>http://www.opensource.org/licenses/bsd-license.php</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+      <scm>
+        <url>git@github.com:ehalpern/macwire-config.git</url>
+        <connection>scm:git:git@github.com:ehalpern/macwire-config.git</connection>
+      </scm>
+      <developers>
+        <developer>
+          <id>ehalpern</id>
+          <name>Eric Halpern</name>
+          <url>https://github.com/ehalpern</url>
+        </developer>
+      </developers>
+    )
   )
 }
 
@@ -26,7 +57,9 @@ object MainBuild extends Build
   lazy val root: Project = Project(
     "root",
     file("."),
-    settings = buildSettings
+    settings = buildSettings ++ Seq(
+      publishArtifact := false
+    )
   ) aggregate(macros)
 
   val MacwireVersion = "0.8.0"
@@ -34,7 +67,7 @@ object MainBuild extends Build
   val Specs2Version = "2.4.15"
 
   lazy val macros: Project = Project(
-    "macwire-config-macros",
+    "macwire-config",
     file("macros"),
     settings = buildSettings ++ Seq(
       version := "SNAPSHOT",

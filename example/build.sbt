@@ -9,9 +9,9 @@ scalaVersion := "2.11.5"
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
 
 // Add external conf directory to the classpath
-unmanagedClasspath in Compile += sourceDirectory.value / "main" / "resources"
+unmanagedClasspath in Compile += (resourceDirectory in Compile).value
 
-unmanagedClasspath in Test    += sourceDirectory.value / "test" / "resources"
+unmanagedClasspath in Test    += (resourceDirectory in Test).value
 
 val ParadiseVersion = "2.0.1"
 addCompilerPlugin("org.scalamacros" % "paradise_2.11.5" % ParadiseVersion)
