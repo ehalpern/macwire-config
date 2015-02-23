@@ -66,8 +66,8 @@ object MainBuild extends Build
   import BuildSettings._
 
   lazy val root: Project = Project(
-    "root",
-    file("."),
+    id = "root",
+    base = file("."),
     settings = buildSettings ++ Seq(
       publishArtifact := false // disable publishing root
     )
@@ -78,9 +78,10 @@ object MainBuild extends Build
   val Specs2Version = "2.4.15"
 
   lazy val macros: Project = Project(
-    "macwire-config",
-    file("macros"),
+    id = "config",
+    base = file("macros"),
     settings = buildSettings ++ Seq(
+      name := "macwire-config",
       libraryDependencies <+= (scalaVersion)("org.scala-lang" % "scala-reflect" % _),
       libraryDependencies ++= Seq(
         "com.typesafe" % "config" % "1.2.1",
@@ -99,7 +100,7 @@ object MainBuild extends Build
   )
 
   lazy val example: Project = Project(
-    "macwire-config-example",
-    file("example")
+    id = "example",
+    base = file("example")
   )
 }
