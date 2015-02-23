@@ -1,7 +1,5 @@
 name := "macwire-config-example"
 
-version := "SNAPSHOT"
-
 organization := "com.github.ehalpern"
 
 scalaVersion := "2.11.5"

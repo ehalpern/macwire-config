@@ -71,7 +71,7 @@ object MainBuild extends Build
     settings = buildSettings ++ Seq(
       publishArtifact := false // disable publishing root
     )
-  ) aggregate(macros)
+  ) aggregate(macros, example)
 
   val MacwireVersion = "0.8.0"
   val Slf4jVersion = "1.7.10"
@@ -100,7 +100,6 @@ object MainBuild extends Build
 
   lazy val example: Project = Project(
     "macwire-config-example",
-    file("example"),
-    settings = buildSettings
+    file("example")
   )
 }
