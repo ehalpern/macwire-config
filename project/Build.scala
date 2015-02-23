@@ -51,7 +51,7 @@ object BuildSettings
   val buildSettings = Defaults.coreDefaultSettings ++ publishSettings ++ Seq(
     organization := "com.github.ehalpern",
     isSnapshot := true,
-    version := "SNAPSHOT",
+    //version := "SNAPSHOT",
     scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature"),
     scalaVersion := "2.11.5",
     resolvers ++= Seq(
