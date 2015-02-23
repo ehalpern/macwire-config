@@ -65,11 +65,13 @@ object BuildSettings
 object MainBuild extends Build
 {
   import BuildSettings._
+  import sbtrelease.ReleasePlugin.ReleaseKeys._
 
   lazy val root: Project = Project(
     "root",
     file("."),
     settings = buildSettings ++ Seq(
+      aggregate in releaseProcess := false,
       publishArtifact := false
     )
   ) aggregate(macros)
