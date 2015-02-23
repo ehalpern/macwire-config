@@ -50,7 +50,6 @@ object BuildSettings
   val paradiseVersion = "2.0.1"
   val buildSettings = Defaults.coreDefaultSettings ++ publishSettings ++ Seq(
     organization := "com.github.ehalpern",
-    isSnapshot := true,
     scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature"),
     scalaVersion := "2.11.5",
     resolvers ++= Seq(
