@@ -1,21 +1,13 @@
+import com.typesafe.sbt.pgp.PgpKeys
 import sbt.Keys._
 import sbt._
 
-object BuildSettings
+object PublishSettings
 {
-  val paradiseVersion = "2.0.1"
-  val buildSettings = Defaults.coreDefaultSettings ++ Seq(
-    organization := "com.github.ehalpern",
-    isSnapshot := true,
-    version := "SNAPSHOT",
-    scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature"),
-    scalaVersion := "2.11.5",
-    resolvers ++= Seq(
-      Resolver.sonatypeRepo("snapshots"),
-      Resolver.sonatypeRepo("releases"),
-      Resolver.typesafeRepo("releases")
-    ),
-    addCompilerPlugin("org.scalamacros" % "paradise_2.11.5" % paradiseVersion),
+  import sbtrelease.ReleasePlugin.releaseSettings
+  import sbtrelease.ReleasePlugin.ReleaseKeys._
+
+  val publishSettings = releaseSettings ++ Seq(
     publishTo := {
       val nexus = "https://oss.sonatype.org/"
       if (isSnapshot.value)
@@ -25,6 +17,7 @@ object BuildSettings
     },
     publishMavenStyle := true,
     publishArtifact in Test := false,
+    publishArtifactsAction := PgpKeys.publishSigned.value,
     pomIncludeRepository := { _ => false },
     pomExtra := (
       <url>https://github.com/ehalpern/macwire-config</url>
@@ -47,6 +40,26 @@ object BuildSettings
         </developer>
       </developers>
     )
+  )
+}
+
+object BuildSettings
+{
+  import PublishSettings._
+
+  val paradiseVersion = "2.0.1"
+  val buildSettings = Defaults.coreDefaultSettings ++ publishSettings ++ Seq(
+    organization := "com.github.ehalpern",
+    isSnapshot := true,
+    version := "SNAPSHOT",
+    scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature"),
+    scalaVersion := "2.11.5",
+    resolvers ++= Seq(
+      Resolver.sonatypeRepo("snapshots"),
+      Resolver.sonatypeRepo("releases"),
+      Resolver.typesafeRepo("releases")
+    ),
+    addCompilerPlugin("org.scalamacros" % "paradise_2.11.5" % paradiseVersion)
   )
 }
 
