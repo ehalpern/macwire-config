@@ -84,7 +84,6 @@ object MainBuild extends Build
     "macwire-config",
     file("macros"),
     settings = buildSettings ++ Seq(
-      version := "SNAPSHOT",
       libraryDependencies <+= (scalaVersion)("org.scala-lang" % "scala-reflect" % _),
       libraryDependencies ++= Seq(
         "com.typesafe" % "config" % "1.2.1",
