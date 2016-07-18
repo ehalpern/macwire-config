@@ -23,7 +23,7 @@ resolvers ++= Seq(
   val MacwireVersion = "0.8.0"
   val ScalaTestVersion = "2.2.1"
   libraryDependencies ++= Seq(
-    "com.github.ehalpern" %% "macwire-config-macros" % "SNAPSHOT",
+    "com.github.ehalpern" %% "macwire-config" % "0.14-SNAPSHOT",
     "com.softwaremill.macwire" %% "macros" % MacwireVersion,
     "com.softwaremill.macwire" %% "runtime" % MacwireVersion,
     //-------------------------------------------------------------------------
