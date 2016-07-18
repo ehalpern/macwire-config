@@ -1,4 +1,3 @@
-import com.typesafe.sbt.pgp.PgpKeys
 import sbt.Keys._
 import sbt._
 
@@ -6,6 +5,7 @@ object PublishSettings
 {
   import sbtrelease.ReleasePlugin.releaseSettings
   import sbtrelease.ReleasePlugin.ReleaseKeys._
+  import com.typesafe.sbt.pgp.PgpKeys
 
   val publishSettings = releaseSettings ++ Seq(
     publishTo := {
@@ -47,17 +47,17 @@ object BuildSettings
 {
   import PublishSettings._
 
-  val paradiseVersion = "2.0.1"
+  val paradiseVersion = "2.1.0"
   val buildSettings = Defaults.coreDefaultSettings ++ publishSettings ++ Seq(
     organization := "com.github.ehalpern",
     scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature"),
-    scalaVersion := "2.11.5",
+    scalaVersion := "2.11.8",
     resolvers ++= Seq(
       Resolver.sonatypeRepo("snapshots"),
       Resolver.sonatypeRepo("releases"),
       Resolver.typesafeRepo("releases")
     ),
-    addCompilerPlugin("org.scalamacros" % "paradise_2.11.5" % paradiseVersion)
+    addCompilerPlugin("org.scalamacros" % "paradise_2.11.8" % paradiseVersion)
   )
 }
 
@@ -73,8 +73,9 @@ object MainBuild extends Build
     )
   ) aggregate(macros, example)
 
-  val MacwireVersion = "0.8.0"
-  val Slf4jVersion = "1.7.10"
+  val MacwireVersion = "2.2.3"
+  val MacwireVersionRuntime = "1.0.7"
+  val Slf4jVersion = "1.7.21"
   val Specs2Version = "2.4.15"
 
   lazy val macros: Project = Project(
@@ -85,11 +86,11 @@ object MainBuild extends Build
       libraryDependencies <+= (scalaVersion)("org.scala-lang" % "scala-reflect" % _),
       libraryDependencies ++= Seq(
         "com.typesafe" % "config" % "1.2.1",
-        "org.scalamacros" % "paradise_2.11.5" % paradiseVersion,
+        "org.scalamacros" % "paradise_2.11.8" % paradiseVersion,
         "org.scala-lang" % "scala-library" % scalaVersion.value,
         "org.scala-lang" % "scala-compiler"  % scalaVersion.value,
         "com.softwaremill.macwire" %% "macros" % MacwireVersion,
-        "com.softwaremill.macwire" %% "runtime" % MacwireVersion,
+        "com.softwaremill.macwire" %% "runtime" % MacwireVersionRuntime,
         "org.slf4j" % "slf4j-api" % Slf4jVersion,
         "org.slf4j" % "slf4j-simple" % Slf4jVersion,
         // Tests
